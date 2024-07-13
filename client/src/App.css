@@ -1,0 +1,145 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400&display=swap');
+/* font-family: "Poppins", serif; */
+/* font-family: "Playfair Display", serif; */
+*{
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  
+}
+
+.navbar{
+  font-family: "Poppins", serif;
+  font-size: 18px;
+  line-height: 26px;
+  text-transform: uppercase;
+  box-shadow: 0px 4px 6px -6px gray;
+  --webkit-box-shadow: 0px 4px 6px -6px gray;
+  border-bottom: solid gray !important;
+}
+.nav-link{
+  font-weight: 400 !important;
+  padding: 12px;
+}
+.active{
+  border-bottom: 2px solid black;
+  /* max-width: 120px; */
+}
+.navbar-brand{
+  font-family:Arial, Helvetica, sans-serif;
+  font-weight: 550;
+  letter-spacing: 1px;
+}
+
+/* footer */
+
+.footer{
+  color: white;
+  background: linear-gradient(to bottom, #333333, #1a1a1a);
+  padding: 24px;
+  font-size: 18px;
+
+}
+.footer a{
+  text-decoration: none;
+  color: white;
+  padding: 8px;
+}
+.footer a:hover{
+  cursor: pointer;
+  border-bottom: 2px solid rgb(243, 228, 202);
+}
+
+/* pnf */
+
+/* Style for the Page Not Found component */
+/* Style for the Page Not Found component */
+/* Style for the Page Not Found component */
+.pnf {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 65vh;
+  text-align: center;
+  background-color: #ffffff; /* White background */
+  color: #333333; /* Dark gray text for contrast */
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.pnf-title {
+  font-size: 5rem;
+  margin: 0;
+}
+
+.pnf-heading {
+  font-size: 1.5rem;
+  margin: 20px 0;
+}
+
+.pnf-btn {
+  padding: 10px 20px;
+  font-size: 1rem;
+  color: #ffffff;
+  background-color: #333333; /* Dark gray button */
+  border: none;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.pnf-btn:hover {
+  background-color: #444444; /* Slightly lighter on hover */
+  color: #ffffff;
+}
+
+@media (max-width: 768px) {
+  .pnf-title {
+    font-size: 4rem;
+  }
+  
+  .pnf-heading {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .pnf-title {
+    font-size: 3rem;
+  }
+  
+  .pnf-heading {
+    font-size: 1rem;
+  }
+}
+
+/* contactus */
+
+.contactus {
+  margin: 0;
+  padding: 0;
+  height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+/* register */
+
+
+.register{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 70vh;
+}
+
+/* products*/
+
+.product-link{
+  text-decoration: none !important;
+  /* color: #1a1a1a; */
+}
