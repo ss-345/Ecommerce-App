@@ -8,7 +8,7 @@ import { useCart } from "../context/cart";
 const CategoryProduct = () => {
   const [products, setProducts] = useState([]);
   const [category, setCategory] = useState([]);
-  const [cart, setCart] = useCart();
+  const { cart, setCart, updateCart } = useCart();
   const params = useParams();
   const navigate = useNavigate();
   const getProductByCat = async () => {
@@ -36,8 +36,10 @@ const CategoryProduct = () => {
       toast.error("Product is already in the cart");
     } else {
       const productWithCount = { ...product, count: 1 };
-      setCart([...cart, productWithCount]);
-      localStorage.setItem("cart", JSON.stringify([...cart, productWithCount]));
+      const newCart=[...cart, productWithCount];
+      setCart(newCart);
+      updateCart(newCart);
+      // localStorage.setItem("cart", JSON.stringify([...cart, productWithCount]));
       toast.success("Item added to cart");
     }
   };

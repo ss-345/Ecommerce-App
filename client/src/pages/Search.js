@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 
 const Search = () => {
   const [values, setValues] = useSearch();
-  const [cart, setCart] = useCart();
+  const { cart, setCart, updateCart } = useCart();
   // Check if product is already in cart
   const isProductInCart = (productId) => {
     return cart.some((product) => product._id === productId);
@@ -18,8 +18,10 @@ const Search = () => {
       toast.error("Product is already in the cart");
     } else {
       const productWithCount = { ...product, count: 1 };
-      setCart([...cart, productWithCount]);
-      localStorage.setItem("cart", JSON.stringify([...cart, productWithCount]));
+      const newCart=[...cart, productWithCount];
+      setCart(newCart);
+      updateCart(newCart);
+      // localStorage.setItem("cart", JSON.stringify([...cart, productWithCount]));
       toast.success("Item added to cart");
     }
   };

@@ -9,7 +9,7 @@ import { Prices } from "../components/Prices";
 import { useCart } from "../context/cart";
 const HomePage = () => {
   const [auth, setAuth] = useAuth();
-  const [cart, setCart] = useCart();
+  const { cart, setCart, updateCart } = useCart();
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [checked, setChecked] = useState([]);
@@ -117,19 +117,23 @@ const HomePage = () => {
   useEffect(() => {
     if (checked.length || radio.length) filterProduct();
   }, [checked, radio]);
+
   // Check if product is already in cart
   const isProductInCart = (productId) => {
     return cart.some((product) => product._id === productId);
   };
 
   // Add to cart handler
-  const addToCart = (product) => {
+  const addToCart = async (product) => {
     if (isProductInCart(product._id)) {
       toast.error("Product is already in the cart");
     } else {
       const productWithCount = { ...product, count: 1 };
-      setCart([...cart, productWithCount]);
-      localStorage.setItem("cart", JSON.stringify([...cart, productWithCount]));
+      const updatedCart = [...cart, productWithCount];
+      await setCart(updatedCart); 
+      localStorage.setItem("cart", JSON.stringify(updatedCart)); 
+      
+      updateCart(updatedCart); 
       toast.success("Item added to cart");
     }
   };
@@ -142,9 +146,9 @@ const HomePage = () => {
         width={"100%"}
       />
       <div className="row mt-4">
-        <div className="col-md-2">
+        <div className="col-md-3 col-sm-4 col-12 mb-3">
           <h4 className="text-center">Filter By Category</h4>
-          <div className="d-flex flex-column p-2 gap-2">
+          <div className="d-flex flex-column p-3 gap-2 border rounded bg-light">
             {categories?.map((c) => (
               <Checkbox
                 key={c._id}
@@ -156,9 +160,9 @@ const HomePage = () => {
               </Checkbox>
             ))}
           </div>
-          {/* filter product */}
+
           <h4 className="text-center mt-4">Filter By Price</h4>
-          <div className="d-flex flex-column p-2 gap-4">
+          <div className="d-flex flex-column p-3 gap-3 border rounded bg-light">
             <Radio.Group onChange={(e) => setRadio(e.target.value)}>
               {Prices?.map((p) => (
                 <div key={p._id}>
@@ -167,17 +171,22 @@ const HomePage = () => {
               ))}
             </Radio.Group>
           </div>
-          <div>
+
+          <div className="mt-4 text-center">
             <button
-              className="btn btn-danger"
+              className="btn btn-danger w-100"
               onClick={() => window.location.reload()}
             >
               RESET FILTERS
             </button>
           </div>
         </div>
+
         <div className="col-md-9">
-          <h1 className="text-center">All Products</h1>
+          <h1 className="text-center">
+            {products.length === 0 ? "No Products Available" : "All Products"}
+          </h1>
+
           <div className="d-flex flex-wrap">
             {products?.map((p) => (
               <div className="card m-2" style={{ width: "20rem" }} key={p._id}>
@@ -207,7 +216,7 @@ const HomePage = () => {
             ))}
           </div>
           <div className="m-2 p-3">
-            {products && products.length < total && (
+            {products.length !== 0 && products.length < total && (
               <button
                 className="btn btn-warning"
                 onClick={(e) => {
@@ -215,6 +224,7 @@ const HomePage = () => {
                   setPage(page + 1);
                 }}
               >
+                {/* {console.log(products)} */}
                 {loading ? "Loading......" : "Loadmore"}
               </button>
             )}

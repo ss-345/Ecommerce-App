@@ -43,6 +43,7 @@ export const registerController = async (req, res) => {
       address,
       password: hashedPassword,
       answer,
+      cart: [],
     }).save();
 
     res.status(200).send({
@@ -82,7 +83,7 @@ export const loginController = async (req, res) => {
     const match = await comparePassword(password, hashedPassword);
     // console.log(match);
     if (!match) {
-      res.status(200).send({
+      return res.status(200).send({
         success: false,
         message: "Wrong Password",
       });
@@ -91,7 +92,7 @@ export const loginController = async (req, res) => {
     const token = await JWT.sign({ _id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "7d",
     });
-
+    // console.log(user);
     res.status(200).send({
       success: true,
       message: "login successfully",
@@ -102,6 +103,7 @@ export const loginController = async (req, res) => {
         phone: user.phone,
         address: user.address,
         role: user.role,
+        cart:user.cart,
       },
       token,
     });
@@ -244,7 +246,7 @@ export const getAllOrdersController = async (req, res) => {
 export const orderStatusController = async (req, res) => {
   try {
     const { orderId } = req.params;
-    console.log(orderId);
+    // console.log(orderId);
     const { status } = req.body;
     const orders = await orderModel.findByIdAndUpdate(
       orderId,
@@ -257,6 +259,31 @@ export const orderStatusController = async (req, res) => {
     res.status(500).send({
       success: false,
       message: "Error While Updateing Order",
+      error,
+    });
+  }
+};
+
+export const updateCart = async (req, res) => {
+  try {
+    const { cart } = req.body;
+    const userId = req.user?._id;
+    const updateResult = await userModel.findByIdAndUpdate(
+      userId,
+      { $set: { cart: cart } },
+      { new: true }
+    );
+
+    res.status(200).send({
+      success: true,
+      message: "Cart updated successfully",
+      updatedCart: updateResult.cart,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({
+      success: "false",
+      message: "Error while updating cart",
       error,
     });
   }

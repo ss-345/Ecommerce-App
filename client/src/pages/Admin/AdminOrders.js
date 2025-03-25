@@ -112,6 +112,7 @@ const AdminOrders = () => {
                         <p>{p.name}</p>
                         <p>{p.description.substring(0, 30)}</p>
                         <p>Price : {p.price}</p>
+                        
                       </div>
                     </div>
                   ))}

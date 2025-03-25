@@ -9,7 +9,7 @@ import toast from "react-hot-toast";
 
 const CartPage = () => {
   const [auth, setAuth] = useAuth();
-  const [cart, setCart] = useCart();
+  const { cart, setCart, updateCart } = useCart();
   const [clientToken, setClientToken] = useState("");
   const [instance, setInstance] = useState("");
   const [loading, setLoading] = useState(false);
@@ -38,7 +38,9 @@ const CartPage = () => {
       let index = myCart.findIndex((item) => item._id === pid);
       myCart.splice(index, 1);
       setCart(myCart);
-      localStorage.setItem("cart", JSON.stringify(myCart));
+      updateCart(myCart);
+      // handleUpdateCart();
+      // localStorage.setItem("cart", JSON.stringify(myCart));
     } catch (error) {
       console.log(error);
     }
@@ -53,7 +55,8 @@ const CartPage = () => {
       return item;
     });
     setCart(updatedCart);
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
+    updateCart(updatedCart);
+    // localStorage.setItem("cart", JSON.stringify(updatedCart));
   };
 
   // Decrement count
@@ -65,7 +68,8 @@ const CartPage = () => {
       return item;
     });
     setCart(updatedCart);
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
+    updateCart(updatedCart);
+    // localStorage.setItem("cart", JSON.stringify(updatedCart));
   };
   // get payment gateway token
 
@@ -101,6 +105,7 @@ const CartPage = () => {
       // console.log("Payment Response:", data);
       setLoading(false);
       setCart([]);
+      // updateCart();
       localStorage.removeItem("cart");
       navigate("/dashboard/user/orders");
       toast("Payment Successful");

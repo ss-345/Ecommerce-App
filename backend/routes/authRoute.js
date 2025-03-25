@@ -8,6 +8,7 @@ import {
   getOrdersController,
   getAllOrdersController,
   orderStatusController,
+  updateCart,
 } from "../controllers/authController.js";
 import { isAdmin, requireSignIn } from "../middlewares/authMiddleware.js";
 
@@ -44,4 +45,5 @@ router.put(
   isAdmin,
   orderStatusController
 );
+router.put("/cart-update",requireSignIn,updateCart)
 export default router;

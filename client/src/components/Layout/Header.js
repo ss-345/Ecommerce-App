@@ -9,7 +9,7 @@ import { useCart } from "../../context/cart";
 import { Badge } from "antd";
 const Header = () => {
   const [auth, setAuth] = useAuth();
-  const [cart, setCart] = useCart();
+  const { cart, setCart, updateCart } = useCart();
   const categories = useCategory();
   const handleOnClick = () => {
     setAuth({ ...auth, user: null, token: "" });
@@ -32,7 +32,7 @@ const Header = () => {
             <span className="navbar-toggler-icon" />
           </button>
           <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
-            <Link to="/" className="navbar-brand">
+            <Link to="/" className="navbar-brand m-2">
               <FaCartShopping /> Ecommerce App
             </Link>
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
@@ -113,15 +113,15 @@ const Header = () => {
                           LogOut
                         </NavLink>
                       </li>
+                      <li className="nav-item">
+                        <NavLink to="/cart" className="nav-link ">
+                          Cart ({cart?.length})
+                        </NavLink>
+                      </li>
                     </ul>
                   </li>
                 </>
               )}
-              <li className="nav-item">
-                <NavLink to="/cart" className="nav-link ">
-                  Cart ({cart?.length})
-                </NavLink>
-              </li>
             </ul>
           </div>
         </div>
