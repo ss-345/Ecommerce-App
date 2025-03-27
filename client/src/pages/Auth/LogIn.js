@@ -5,10 +5,12 @@ import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import "../../styles/AuthStyle.css";
 import { useAuth } from "../../context/auth";
+import { useCart } from "../../context/cart";
 const LogIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [auth, setAuth] = useAuth();
+  const {cart,setCart}=useCart();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -26,6 +28,9 @@ const LogIn = () => {
         toast.success(result.data.message);
         setAuth({ ...auth, user: result.data.user, token: result.data.token });
         localStorage.setItem("auth", JSON.stringify(result.data));
+        const userCart = result.data.user.cart || [];
+        setCart(userCart);
+        localStorage.setItem("cart", JSON.stringify(userCart));
         navigate(location.state || "/");
       } else {
         toast.error(result.data.message);

@@ -13,7 +13,9 @@ const Header = () => {
   const categories = useCategory();
   const handleOnClick = () => {
     setAuth({ ...auth, user: null, token: "" });
+    setCart([]);
     localStorage.removeItem("auth");
+    localStorage.removeItem("cart");
     toast.success("LogOut successfully");
   };
   return (

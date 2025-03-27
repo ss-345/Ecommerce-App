@@ -21,9 +21,7 @@ const AuthProvider = ({ children }) => {
       // setCart(auth.user?.cart);
       console.log(parseData);
       if (parseData.user && parseData.user.cart) {
-        {
-          console.log("hi");
-        }
+        
         localStorage.setItem("cart", JSON.stringify(parseData.user.cart));
       } else {
         {
